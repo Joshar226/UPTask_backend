@@ -4,7 +4,7 @@ import { body, param } from "express-validator";
 import { handleInputErrors } from "../middleware/validation";
 import { TaskController } from "../controllers/TaskController";
 import { projectExist } from "../middleware/project";
-import { taskExist } from "../middleware/task";
+import { taskBelongToProject, taskExist } from "../middleware/task";
 
 const router = Router()
 
@@ -47,7 +47,9 @@ router.delete('/:id',
 
 /** Router for Tasks */
 router.param('projectId', projectExist)
+
 router.param('taskId', taskExist)
+router.param('taskId', taskBelongToProject)
 
 router.post('/:projectId/task',
     body('name')
