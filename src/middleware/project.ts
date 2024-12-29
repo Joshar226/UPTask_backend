@@ -18,7 +18,7 @@ export async function projectExist(req: Request, res: Response, next: NextFuncti
             res.status(404).json({error: error.message})
             return
         }
-        req.project = project
+        req.project = project        
         next()
     } catch (error) {
         res.status(500).json({error: 'Hubo un error'})

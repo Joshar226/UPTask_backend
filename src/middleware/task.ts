@@ -14,14 +14,14 @@ export async function taskExist(req: Request, res: Response, next: NextFunction)
         const {taskId} = req.params
         const task = await Task.findById(taskId)
         if(!task) {
-            const error = new Error('Tarea no encontrado')
+            const error = new Error('Tarea no encontrada')
             res.status(404).json({error: error.message})
             return
         }
         req.task = task
         next()
     } catch (error) {
-        res.status(500).json({error: 'Hubo un error'})
+        res.status(500).json({error: 'Tarea no encontrada'})
     }
 }
 
@@ -34,7 +34,7 @@ export function taskBelongToProject(req: Request, res: Response, next: NextFunct
         }
         next()
     } catch (error) {
-        res.status(500).json({error: 'Hubo un error'})
+        res.status(500).json({error: 'Tarea no encontrada'})
     }
 }
 
