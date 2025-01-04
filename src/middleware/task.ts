@@ -38,4 +38,15 @@ export function taskBelongToProject(req: Request, res: Response, next: NextFunct
     }
 }
 
-
+export function hasAuthorization(req: Request, res: Response, next: NextFunction) {
+    try {
+        if( req.user.id.toString() !== req.project.manager.toString() ) {
+            const error = new Error('Accion no valida')
+            res.status(400).json({error: error.message})
+            return
+        }
+        next()
+    } catch (error) {
+        res.status(500).json({error: 'Tarea no encontrada'})
+    }
+}
